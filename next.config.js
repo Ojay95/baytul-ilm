@@ -3,8 +3,9 @@ const nextConfig = {
   images: {
     domains: ['images.pexels.com'],
   },
+  swcMinify: false,
   experimental: {
-    appDir: true,
+    esmExternals: false,
   },
 }
 
