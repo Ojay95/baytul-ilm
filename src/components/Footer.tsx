@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import { BookOpen, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react'
 
 const Footer = () => {
@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center space-x-2 mb-6">
+            <Link to="/" className="flex items-center space-x-2 mb-6">
               <div className="bg-islamic-600 p-2 rounded-lg">
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
@@ -40,17 +40,17 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/courses" className="text-islamic-200 hover:text-white transition-colors">
+                <Link to="/courses" className="text-islamic-200 hover:text-white transition-colors">
                   All Courses
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-islamic-200 hover:text-white transition-colors">
+                <Link to="/about" className="text-islamic-200 hover:text-white transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-islamic-200 hover:text-white transition-colors">
+                <Link to="/contact" className="text-islamic-200 hover:text-white transition-colors">
                   Contact
                 </Link>
               </li>

@@ -2,7 +2,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react'
 
-export default function ContactPage() {
+export default function Contact() {
   return (
     <>
       <Header />

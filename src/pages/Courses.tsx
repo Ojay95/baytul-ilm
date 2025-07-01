@@ -93,7 +93,7 @@ const categories = [
   "Tafseer"
 ]
 
-export default function CoursesPage() {
+export default function Courses() {
   return (
     <>
       <Header />
