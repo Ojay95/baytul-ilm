@@ -33,14 +33,14 @@ const Header = () => {
               Home
             </Link>
             <Link
-              to="/courses"
+              to="/tutors"
               className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                isActive('/courses') 
+                isActive('/tutors') 
                   ? 'text-islamic-600 bg-islamic-50' 
                   : 'text-gray-700 hover:text-islamic-600 hover:bg-islamic-50'
               }`}
             >
-              Courses
+              Find Tutors
             </Link>
             <Link
               to="/about"
@@ -51,6 +51,16 @@ const Header = () => {
               }`}
             >
               About
+            </Link>
+            <Link
+              to="/become-tutor"
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                isActive('/become-tutor') 
+                  ? 'text-islamic-600 bg-islamic-50' 
+                  : 'text-gray-700 hover:text-islamic-600 hover:bg-islamic-50'
+              }`}
+            >
+              Become a Tutor
             </Link>
             <Link
               to="/contact"
@@ -72,10 +82,13 @@ const Header = () => {
             <button className="p-2 text-gray-600 hover:text-islamic-600 transition-colors">
               <Bell className="h-5 w-5" />
             </button>
-            <button className="bg-islamic-600 text-white px-4 py-2 rounded-lg hover:bg-islamic-700 transition-colors duration-200 flex items-center space-x-2">
+            <Link 
+              to="/dashboard"
+              className="bg-islamic-600 text-white px-4 py-2 rounded-lg hover:bg-islamic-700 transition-colors duration-200 flex items-center space-x-2"
+            >
               <User className="h-4 w-4" />
-              <span>Sign In</span>
-            </button>
+              <span>Dashboard</span>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -105,15 +118,15 @@ const Header = () => {
                 Home
               </Link>
               <Link
-                to="/courses"
+                to="/tutors"
                 className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                  isActive('/courses') 
+                  isActive('/tutors') 
                     ? 'text-islamic-600 bg-islamic-50' 
                     : 'text-gray-700 hover:text-islamic-600 hover:bg-islamic-50'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Courses
+                Find Tutors
               </Link>
               <Link
                 to="/about"
@@ -127,6 +140,17 @@ const Header = () => {
                 About
               </Link>
               <Link
+                to="/become-tutor"
+                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                  isActive('/become-tutor') 
+                    ? 'text-islamic-600 bg-islamic-50' 
+                    : 'text-gray-700 hover:text-islamic-600 hover:bg-islamic-50'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Become a Tutor
+              </Link>
+              <Link
                 to="/contact"
                 className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                   isActive('/contact') 
@@ -138,10 +162,14 @@ const Header = () => {
                 Contact
               </Link>
               <div className="pt-4 pb-3 border-t border-gray-200">
-                <button className="w-full bg-islamic-600 text-white px-4 py-2 rounded-lg hover:bg-islamic-700 transition-colors duration-200 flex items-center justify-center space-x-2">
+                <Link 
+                  to="/dashboard"
+                  className="w-full bg-islamic-600 text-white px-4 py-2 rounded-lg hover:bg-islamic-700 transition-colors duration-200 flex items-center justify-center space-x-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   <User className="h-4 w-4" />
-                  <span>Sign In</span>
-                </button>
+                  <span>Dashboard</span>
+                </Link>
               </div>
             </div>
           </div>
