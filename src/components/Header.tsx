@@ -82,13 +82,51 @@ const Header = () => {
             <button className="p-2 text-gray-600 hover:text-islamic-600 transition-colors">
               <Bell className="h-5 w-5" />
             </button>
-            <Link 
-              to="/dashboard"
-              className="bg-islamic-600 text-white px-4 py-2 rounded-lg hover:bg-islamic-700 transition-colors duration-200 flex items-center space-x-2"
-            >
-              <User className="h-4 w-4" />
-              <span>Dashboard</span>
-            </Link>
+            
+            {/* User Dropdown */}
+            <div className="relative group">
+              <button className="flex items-center space-x-2 bg-islamic-600 text-white px-4 py-2 rounded-lg hover:bg-islamic-700 transition-colors duration-200">
+                <User className="h-4 w-4" />
+                <span>Account</span>
+              </button>
+              
+              {/* Dropdown Menu */}
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="py-2">
+                  <Link 
+                    to="/dashboard"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-islamic-50 hover:text-islamic-600"
+                  >
+                    Student Dashboard
+                  </Link>
+                  <Link 
+                    to="/student-profile"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-islamic-50 hover:text-islamic-600"
+                  >
+                    My Profile
+                  </Link>
+                  <Link 
+                    to="/tutor-dashboard"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-islamic-50 hover:text-islamic-600"
+                  >
+                    Tutor Dashboard
+                  </Link>
+                  <Link 
+                    to="/tutor-earnings"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-islamic-50 hover:text-islamic-600"
+                  >
+                    Earnings
+                  </Link>
+                  <hr className="my-2" />
+                  <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-islamic-50 hover:text-islamic-600">
+                    Settings
+                  </button>
+                  <button className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -161,14 +199,34 @@ const Header = () => {
               >
                 Contact
               </Link>
-              <div className="pt-4 pb-3 border-t border-gray-200">
+              <div className="pt-4 pb-3 border-t border-gray-200 space-y-1">
                 <Link 
                   to="/dashboard"
-                  className="w-full bg-islamic-600 text-white px-4 py-2 rounded-lg hover:bg-islamic-700 transition-colors duration-200 flex items-center justify-center space-x-2"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-islamic-600 hover:bg-islamic-50"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <User className="h-4 w-4" />
-                  <span>Dashboard</span>
+                  Student Dashboard
+                </Link>
+                <Link 
+                  to="/student-profile"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-islamic-600 hover:bg-islamic-50"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  My Profile
+                </Link>
+                <Link 
+                  to="/tutor-dashboard"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-islamic-600 hover:bg-islamic-50"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Tutor Dashboard
+                </Link>
+                <Link 
+                  to="/tutor-earnings"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-islamic-600 hover:bg-islamic-50"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Earnings
                 </Link>
               </div>
             </div>
