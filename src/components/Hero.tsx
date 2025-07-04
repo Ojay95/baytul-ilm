@@ -74,7 +74,7 @@ const Hero = () => {
           <div className="relative">
             <div className="relative z-10">
               <img
-                src="https://images.pexels.com/photos/8111357/pexels-photo-8111357.jpeg"
+                src="/image.png"
                 alt="Islamic Learning with Tutor"
                 className="rounded-2xl shadow-2xl w-full h-[500px] object-cover"
               />

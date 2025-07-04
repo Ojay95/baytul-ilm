@@ -7,6 +7,7 @@ import Contact from './pages/Contact'
 import BecomeTutor from './pages/BecomeTutor'
 import BookSession from './pages/BookSession'
 import Dashboard from './pages/Dashboard'
+import Chat from './pages/Chat'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/become-tutor" element={<BecomeTutor />} />
       <Route path="/book-session/:tutorId" element={<BookSession />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/chat/:tutorId" element={<Chat />} />
     </Routes>
   )
 }

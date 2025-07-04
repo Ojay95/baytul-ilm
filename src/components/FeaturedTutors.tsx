@@ -177,9 +177,12 @@ const FeaturedTutors = () => {
                   >
                     View Profile
                   </Link>
-                  <button className="bg-gray-100 text-gray-700 p-2 rounded-lg hover:bg-gray-200 transition-colors duration-200">
+                  <Link
+                    to={`/chat/${tutor.id}`}
+                    className="bg-gray-100 text-gray-700 p-2 rounded-lg hover:bg-gray-200 transition-colors duration-200"
+                  >
                     <MessageCircle className="w-5 h-5" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
