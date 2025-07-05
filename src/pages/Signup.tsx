@@ -51,7 +51,8 @@ export default function Signup() {
         role: formData.role,
         phone: formData.phone || undefined
       })
-      navigate('/')
+      // Navigate to verification page with email
+      navigate('/verify-email', { state: { email: formData.email } })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Signup failed')
     } finally {

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { BookOpen, Eye, EyeOff, AlertCircle } from 'lucide-react'
+import { BookOpen, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react'
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -10,6 +10,7 @@ export default function Login() {
   })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const { login } = useAuth()
@@ -18,9 +19,19 @@ export default function Login() {
 
   const from = location.state?.from?.pathname || '/'
 
+  // Check for success message from other pages
+  useEffect(() => {
+    if (location.state?.message) {
+      setSuccessMessage(location.state.message)
+      // Clear the message from location state
+      window.history.replaceState({}, document.title)
+    }
+  }, [location.state])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setSuccessMessage('')
     setIsLoading(true)
 
     try {
@@ -85,6 +96,13 @@ export default function Login() {
 
         {/* Login Form */}
         <form className="mt-8 space-y-6 bg-white p-8 rounded-2xl shadow-lg" onSubmit={handleSubmit}>
+          {successMessage && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
+              <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+              <span className="text-green-700 text-sm">{successMessage}</span>
+            </div>
+          )}
+
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center gap-3">
               <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
