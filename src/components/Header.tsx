@@ -88,16 +88,6 @@ const Header = () => {
             >
               Find Tutors
             </Link>
-            <Link
-              to="/about"
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                isActive('/about') 
-                  ? 'text-islamic-600 bg-islamic-50' 
-                  : 'text-gray-700 hover:text-islamic-600 hover:bg-islamic-50'
-              }`}
-            >
-              About
-            </Link>
             {!hasRole('student') && (
               <Link
                 to="/become-tutor"
@@ -110,16 +100,6 @@ const Header = () => {
                 Become a Tutor
               </Link>
             )}
-            <Link
-              to="/contact"
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                isActive('/contact') 
-                  ? 'text-islamic-600 bg-islamic-50' 
-                  : 'text-gray-700 hover:text-islamic-600 hover:bg-islamic-50'
-              }`}
-            >
-              Contact
-            </Link>
           </nav>
 
           {/* Desktop Actions */}
@@ -246,17 +226,6 @@ const Header = () => {
               >
                 Find Tutors
               </Link>
-              <Link
-                to="/about"
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                  isActive('/about') 
-                    ? 'text-islamic-600 bg-islamic-50' 
-                    : 'text-gray-700 hover:text-islamic-600 hover:bg-islamic-50'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </Link>
               {!hasRole('student') && (
                 <Link
                   to="/become-tutor"
@@ -270,17 +239,6 @@ const Header = () => {
                   Become a Tutor
                 </Link>
               )}
-              <Link
-                to="/contact"
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                  isActive('/contact') 
-                    ? 'text-islamic-600 bg-islamic-50' 
-                    : 'text-gray-700 hover:text-islamic-600 hover:bg-islamic-50'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
-              </Link>
               
               {isAuthenticated ? (
                 <div className="pt-4 pb-3 border-t border-gray-200 space-y-1">

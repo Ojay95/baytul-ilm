@@ -1,7 +1,34 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { Calendar, Clock, Users, DollarSign, Star, Video, MessageCircle, BookOpen, Settings, Bell, TrendingUp, Award, Eye, Download, Filter } from 'lucide-react'
+import { 
+  Calendar, 
+  Clock, 
+  Users, 
+  DollarSign, 
+  Star, 
+  Video, 
+  MessageCircle, 
+  BookOpen, 
+  Settings, 
+  Bell, 
+  TrendingUp, 
+  Award, 
+  Eye, 
+  Download, 
+  Filter,
+  Edit,
+  Trash2,
+  Plus,
+  Search,
+  Phone,
+  Mail,
+  MapPin,
+  Globe,
+  Camera,
+  Save,
+  X
+} from 'lucide-react'
 
 const upcomingSessions = [
   {
@@ -45,28 +72,119 @@ const upcomingSessions = [
   }
 ]
 
-const recentSessions = [
+const allSessions = [
+  ...upcomingSessions,
   {
-    id: 1,
+    id: 4,
     studentName: "Yusuf Ali",
+    studentImage: "https://images.pexels.com/photos/8111359/pexels-photo-8111359.jpeg",
     subject: "Advanced Tajweed",
     date: "Dec 15",
+    time: "4:00 PM",
     duration: "60 minutes",
-    earnings: 45,
-    rating: 5,
-    status: "completed"
+    type: "Video Call",
+    status: "completed",
+    sessionType: "Standard Session",
+    price: 45
+  },
+  {
+    id: 5,
+    studentName: "Khadija Mohammed",
+    studentImage: "https://images.pexels.com/photos/8111360/pexels-photo-8111360.jpeg",
+    subject: "Quran Recitation",
+    date: "Dec 12",
+    time: "2:00 PM",
+    duration: "45 minutes",
+    type: "Video Call",
+    status: "completed",
+    sessionType: "Standard Session",
+    price: 45
+  }
+]
+
+const students = [
+  {
+    id: 1,
+    name: "Amina Hassan",
+    email: "amina.hassan@email.com",
+    image: "https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg",
+    joinDate: "2024-01-15",
+    totalSessions: 24,
+    completedSessions: 22,
+    averageRating: 4.9,
+    lastSession: "2024-12-18",
+    status: "active",
+    location: "Toronto, Canada",
+    subjects: ["Quran Recitation", "Tajweed"]
   },
   {
     id: 2,
-    studentName: "Khadija Mohammed", 
-    subject: "Quran Recitation",
-    date: "Dec 12",
-    duration: "45 minutes",
-    earnings: 45,
-    rating: 5,
-    status: "completed"
+    name: "Omar Abdullah",
+    email: "omar.abdullah@email.com",
+    image: "https://images.pexels.com/photos/8111357/pexels-photo-8111357.jpeg",
+    joinDate: "2024-02-20",
+    totalSessions: 18,
+    completedSessions: 16,
+    averageRating: 4.8,
+    lastSession: "2024-12-17",
+    status: "active",
+    location: "London, UK",
+    subjects: ["Tajweed Basics", "Quran Memorization"]
+  },
+  {
+    id: 3,
+    name: "Fatima Al-Zahra",
+    email: "fatima.alzahra@email.com",
+    image: "https://images.pexels.com/photos/8111358/pexels-photo-8111358.jpeg",
+    joinDate: "2024-03-10",
+    totalSessions: 12,
+    completedSessions: 10,
+    averageRating: 4.7,
+    lastSession: "2024-12-15",
+    status: "active",
+    location: "Sydney, Australia",
+    subjects: ["Quran Memorization"]
+  },
+  {
+    id: 4,
+    name: "Yusuf Ali",
+    email: "yusuf.ali@email.com",
+    image: "https://images.pexels.com/photos/8111359/pexels-photo-8111359.jpeg",
+    joinDate: "2024-04-05",
+    totalSessions: 30,
+    completedSessions: 28,
+    averageRating: 5.0,
+    lastSession: "2024-12-16",
+    status: "active",
+    location: "Dubai, UAE",
+    subjects: ["Advanced Tajweed", "Qira'at"]
   }
 ]
+
+const tutorProfile = {
+  name: "Sheikh Ahmad Al-Mahmoud",
+  title: "Quran & Tajweed Specialist",
+  email: "ahmad@baytul-ilm.com",
+  phone: "+20 123 456 7890",
+  location: "Cairo, Egypt",
+  timezone: "GMT+2",
+  image: "https://images.pexels.com/photos/8111357/pexels-photo-8111357.jpeg",
+  bio: "Certified Qari with Ijazah in 7 different Qira'at. I have been teaching Quran recitation and Tajweed for over 15 years.",
+  specialties: ["Quran Recitation", "Tajweed", "Memorization", "Qira'at"],
+  languages: ["Arabic", "English", "Urdu"],
+  experience: "15+ years",
+  hourlyRate: 45,
+  education: [
+    "Ijazah in 7 Qira'at from Al-Azhar University",
+    "Bachelor's in Islamic Studies - Al-Azhar University",
+    "Master's in Quranic Sciences - Al-Azhar University"
+  ],
+  certifications: [
+    { name: "Ijazah in Hafs", issuer: "Al-Azhar University", year: "2008" },
+    { name: "Ijazah in Warsh", issuer: "Al-Azhar University", year: "2010" },
+    { name: "Teaching Certificate", issuer: "International Quran Academy", year: "2015" }
+  ]
+}
 
 const stats = [
   {
@@ -126,6 +244,47 @@ const notifications = [
 export default function TutorDashboard() {
   const [activeTab, setActiveTab] = useState('overview')
   const [showNotifications, setShowNotifications] = useState(false)
+  const [isEditingProfile, setIsEditingProfile] = useState(false)
+  const [profileData, setProfileData] = useState(tutorProfile)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedFilter, setSelectedFilter] = useState('all')
+
+  const handleProfileSave = () => {
+    setIsEditingProfile(false)
+    // Save logic would go here
+  }
+
+  const handleProfileCancel = () => {
+    setProfileData(tutorProfile)
+    setIsEditingProfile(false)
+  }
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'active':
+      case 'confirmed':
+      case 'completed':
+        return 'bg-green-100 text-green-800'
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800'
+      case 'cancelled':
+        return 'bg-red-100 text-red-800'
+      default:
+        return 'bg-gray-100 text-gray-800'
+    }
+  }
+
+  const filteredSessions = allSessions.filter(session => {
+    const matchesSearch = session.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         session.subject.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesFilter = selectedFilter === 'all' || session.status === selectedFilter
+    return matchesSearch && matchesFilter
+  })
+
+  const filteredStudents = students.filter(student => 
+    student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    student.email.toLowerCase().includes(searchTerm.toLowerCase())
+  )
 
   return (
     <>
@@ -178,7 +337,7 @@ export default function TutorDashboard() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Navigation Tabs */}
-          <div className="flex space-x-8 mb-8 border-b">
+          <div className="flex space-x-8 mb-8 border-b overflow-x-auto">
             {[
               { id: 'overview', label: 'Overview' },
               { id: 'sessions', label: 'My Sessions' },
@@ -189,7 +348,7 @@ export default function TutorDashboard() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+                className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
                   activeTab === tab.id
                     ? 'border-islamic-600 text-islamic-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -280,11 +439,7 @@ export default function TutorDashboard() {
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                              session.status === 'confirmed' 
-                                ? 'bg-green-100 text-green-800'
-                                : 'bg-yellow-100 text-yellow-800'
-                            }`}>
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(session.status)}`}>
                               {session.status}
                             </span>
                             <button className="bg-islamic-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-islamic-700 transition-colors">
@@ -302,39 +457,191 @@ export default function TutorDashboard() {
                   )}
                 </div>
               </div>
+            </div>
+          )}
 
-              {/* Recent Activity */}
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
-                <div className="p-6 border-b border-gray-100">
-                  <h2 className="text-xl font-bold text-gray-900">Recent Sessions</h2>
+          {activeTab === 'sessions' && (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-gray-900">My Sessions</h2>
+                <div className="flex items-center gap-4">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <input
+                      type="text"
+                      placeholder="Search sessions..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-islamic-500 focus:border-transparent"
+                    />
+                  </div>
+                  <select
+                    value={selectedFilter}
+                    onChange={(e) => setSelectedFilter(e.target.value)}
+                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-islamic-500 focus:border-transparent"
+                  >
+                    <option value="all">All Sessions</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
                 </div>
-                <div className="p-6">
-                  <div className="space-y-4">
-                    {recentSessions.map((session) => (
-                      <div key={session.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-                        <div>
-                          <h3 className="font-semibold text-gray-900">{session.subject}</h3>
-                          <p className="text-sm text-gray-600">with {session.studentName}</p>
-                          <div className="flex items-center gap-4 text-xs text-gray-500 mt-1">
-                            <span>{session.date}</span>
-                            <span>{session.duration}</span>
-                            <span className="font-medium text-green-600">+${session.earnings}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                          <div className="flex items-center gap-1">
-                            {[...Array(session.rating)].map((_, i) => (
-                              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                            ))}
-                          </div>
-                          <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
-                            Completed
-                          </span>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Earnings</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {filteredSessions.map((session) => (
+                        <tr key={session.id} className="hover:bg-gray-50">
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center">
+                              <img
+                                src={session.studentImage}
+                                alt={session.studentName}
+                                className="w-10 h-10 rounded-full object-cover"
+                              />
+                              <div className="ml-4">
+                                <div className="text-sm font-medium text-gray-900">{session.studentName}</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {session.subject}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">{session.date}</div>
+                            <div className="text-sm text-gray-500">{session.time}</div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {session.duration}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(session.status)}`}>
+                              {session.status}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
+                            ${session.price}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <div className="flex items-center gap-2">
+                              <button className="text-islamic-600 hover:text-islamic-700">
+                                <Eye className="w-4 h-4" />
+                              </button>
+                              <button className="text-blue-600 hover:text-blue-700">
+                                <Edit className="w-4 h-4" />
+                              </button>
+                              <button className="text-red-600 hover:text-red-700">
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'students' && (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-gray-900">My Students</h2>
+                <div className="flex items-center gap-4">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <input
+                      type="text"
+                      placeholder="Search students..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-islamic-500 focus:border-transparent"
+                    />
+                  </div>
+                  <button className="bg-islamic-600 text-white px-4 py-2 rounded-lg hover:bg-islamic-700 transition-colors flex items-center gap-2">
+                    <Plus className="w-4 h-4" />
+                    Add Student
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredStudents.map((student) => (
+                  <div key={student.id} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <div className="flex items-center gap-4 mb-4">
+                      <img
+                        src={student.image}
+                        alt={student.name}
+                        className="w-16 h-16 rounded-full object-cover"
+                      />
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-900">{student.name}</h3>
+                        <p className="text-sm text-gray-600">{student.email}</p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <MapPin className="w-3 h-3 text-gray-400" />
+                          <span className="text-xs text-gray-500">{student.location}</span>
                         </div>
                       </div>
-                    ))}
+                    </div>
+                    
+                    <div className="space-y-3 mb-4">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Total Sessions:</span>
+                        <span className="font-medium">{student.totalSessions}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Completed:</span>
+                        <span className="font-medium">{student.completedSessions}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Average Rating:</span>
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                          <span className="font-medium">{student.averageRating}</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Last Session:</span>
+                        <span className="font-medium">{new Date(student.lastSession).toLocaleDateString()}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="mb-4">
+                      <p className="text-xs text-gray-600 mb-2">Subjects:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {student.subjects.map((subject, index) => (
+                          <span key={index} className="bg-islamic-100 text-islamic-700 px-2 py-1 rounded text-xs">
+                            {subject}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <button className="flex-1 bg-islamic-600 text-white py-2 px-3 rounded-lg hover:bg-islamic-700 transition-colors text-sm">
+                        View Profile
+                      </button>
+                      <button className="bg-gray-100 text-gray-700 p-2 rounded-lg hover:bg-gray-200 transition-colors">
+                        <MessageCircle className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           )}
@@ -342,7 +649,7 @@ export default function TutorDashboard() {
           {activeTab === 'earnings' && (
             <div className="space-y-8">
               {/* Earnings Overview */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-gray-900">Total Earnings</h3>
@@ -369,9 +676,18 @@ export default function TutorDashboard() {
                   <div className="text-3xl font-bold text-gray-900 mb-2">$180</div>
                   <div className="text-sm text-yellow-600">4 sessions pending payment</div>
                 </div>
+                
+                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Available</h3>
+                    <Award className="w-6 h-6 text-blue-500" />
+                  </div>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">$2,160</div>
+                  <div className="text-sm text-blue-600">Ready for payout</div>
+                </div>
               </div>
 
-              {/* Earnings Chart Placeholder */}
+              {/* Earnings Chart */}
               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-bold text-gray-900">Earnings Overview</h2>
@@ -390,65 +706,221 @@ export default function TutorDashboard() {
                   <p className="text-gray-500">Earnings chart would be displayed here</p>
                 </div>
               </div>
+            </div>
+          )}
 
-              {/* Payment History */}
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
-                <div className="p-6 border-b border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-bold text-gray-900">Payment History</h2>
-                    <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-                      <Filter className="w-4 h-4" />
-                      Filter
+          {activeTab === 'profile' && (
+            <div className="space-y-8">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-gray-900">Profile Settings</h2>
+                {!isEditingProfile ? (
+                  <button
+                    onClick={() => setIsEditingProfile(true)}
+                    className="bg-islamic-600 text-white px-6 py-2 rounded-lg hover:bg-islamic-700 transition-colors flex items-center gap-2"
+                  >
+                    <Edit className="w-4 h-4" />
+                    Edit Profile
+                  </button>
+                ) : (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleProfileSave}
+                      className="bg-islamic-600 text-white px-6 py-2 rounded-lg hover:bg-islamic-700 transition-colors flex items-center gap-2"
+                    >
+                      <Save className="w-4 h-4" />
+                      Save Changes
+                    </button>
+                    <button
+                      onClick={handleProfileCancel}
+                      className="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"
+                    >
+                      <X className="w-4 h-4" />
+                      Cancel
                     </button>
                   </div>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2">
+                  <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                    <div className="flex items-center gap-6 mb-8">
+                      <div className="relative">
+                        <img
+                          src={profileData.image}
+                          alt={profileData.name}
+                          className="w-24 h-24 rounded-full object-cover"
+                        />
+                        {isEditingProfile && (
+                          <button className="absolute bottom-0 right-0 bg-islamic-600 text-white p-2 rounded-full hover:bg-islamic-700 transition-colors">
+                            <Camera className="w-4 h-4" />
+                          </button>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        {isEditingProfile ? (
+                          <div className="space-y-4">
+                            <input
+                              type="text"
+                              value={profileData.name}
+                              onChange={(e) => setProfileData({...profileData, name: e.target.value})}
+                              className="w-full text-2xl font-bold bg-transparent border-b-2 border-islamic-300 focus:border-islamic-600 outline-none"
+                            />
+                            <input
+                              type="text"
+                              value={profileData.title}
+                              onChange={(e) => setProfileData({...profileData, title: e.target.value})}
+                              className="w-full text-lg text-islamic-600 bg-transparent border-b border-gray-300 focus:border-islamic-600 outline-none"
+                            />
+                          </div>
+                        ) : (
+                          <>
+                            <h1 className="text-2xl font-bold text-gray-900">{profileData.name}</h1>
+                            <p className="text-lg text-islamic-600">{profileData.title}</p>
+                          </>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        {isEditingProfile ? (
+                          <input
+                            type="email"
+                            value={profileData.email}
+                            onChange={(e) => setProfileData({...profileData, email: e.target.value})}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-islamic-500 focus:border-transparent"
+                          />
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <Mail className="w-4 h-4 text-gray-500" />
+                            <span>{profileData.email}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                        {isEditingProfile ? (
+                          <input
+                            type="tel"
+                            value={profileData.phone}
+                            onChange={(e) => setProfileData({...profileData, phone: e.target.value})}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-islamic-500 focus:border-transparent"
+                          />
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <Phone className="w-4 h-4 text-gray-500" />
+                            <span>{profileData.phone}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                        {isEditingProfile ? (
+                          <input
+                            type="text"
+                            value={profileData.location}
+                            onChange={(e) => setProfileData({...profileData, location: e.target.value})}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-islamic-500 focus:border-transparent"
+                          />
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-gray-500" />
+                            <span>{profileData.location}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Timezone</label>
+                        {isEditingProfile ? (
+                          <select
+                            value={profileData.timezone}
+                            onChange={(e) => setProfileData({...profileData, timezone: e.target.value})}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-islamic-500 focus:border-transparent"
+                          >
+                            <option value="GMT+2">GMT+2</option>
+                            <option value="GMT+1">GMT+1</option>
+                            <option value="GMT">GMT</option>
+                            <option value="GMT-5">GMT-5</option>
+                          </select>
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <Globe className="w-4 h-4 text-gray-500" />
+                            <span>{profileData.timezone}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Hourly Rate ($)</label>
+                        {isEditingProfile ? (
+                          <input
+                            type="number"
+                            value={profileData.hourlyRate}
+                            onChange={(e) => setProfileData({...profileData, hourlyRate: parseInt(e.target.value)})}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-islamic-500 focus:border-transparent"
+                          />
+                        ) : (
+                          <div className="text-2xl font-bold text-islamic-600">${profileData.hourlyRate}/hour</div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mt-6">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+                      {isEditingProfile ? (
+                        <textarea
+                          value={profileData.bio}
+                          onChange={(e) => setProfileData({...profileData, bio: e.target.value})}
+                          rows={4}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-islamic-500 focus:border-transparent"
+                        />
+                      ) : (
+                        <p className="text-gray-700">{profileData.bio}</p>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Session</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      <tr>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 15, 2024</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Amina Hassan</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Quran Recitation</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">$45.00</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Paid</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 12, 2024</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Omar Abdullah</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Tajweed Basics</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">$45.00</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Paid</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 10, 2024</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Fatima Al-Zahra</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Trial Session</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-yellow-600">$20.00</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Pending</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+
+                <div className="space-y-6">
+                  <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Specialties</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {profileData.specialties.map((specialty, index) => (
+                        <span key={index} className="bg-islamic-100 text-islamic-700 px-3 py-1 rounded-full text-sm">
+                          {specialty}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Languages</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {profileData.languages.map((language, index) => (
+                        <span key={index} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+                          {language}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Education</h3>
+                    <ul className="space-y-2">
+                      {profileData.education.map((item, index) => (
+                        <li key={index} className="text-sm text-gray-700">• {item}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           )}
-
-          {/* Other tabs would be implemented similarly */}
         </div>
       </main>
       <Footer />

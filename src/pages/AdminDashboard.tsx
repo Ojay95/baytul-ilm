@@ -26,7 +26,9 @@ import {
   Activity,
   BarChart3,
   PieChart,
-  Clock
+  Clock,
+  ArrowUpRight,
+  ArrowDownRight
 } from 'lucide-react'
 
 const stats = [
@@ -169,6 +171,68 @@ const pendingApprovals = [
     status: "pending"
   }
 ]
+
+const analyticsData = {
+  userGrowth: [
+    { month: 'Jan', users: 8500, growth: 12 },
+    { month: 'Feb', users: 9200, growth: 8 },
+    { month: 'Mar', users: 9800, growth: 6 },
+    { month: 'Apr', users: 10500, growth: 7 },
+    { month: 'May', users: 11200, growth: 6 },
+    { month: 'Jun', users: 11900, growth: 6 },
+    { month: 'Jul', users: 12600, growth: 5 },
+    { month: 'Aug', users: 13400, growth: 6 },
+    { month: 'Sep', users: 14100, growth: 5 },
+    { month: 'Oct', users: 14800, growth: 4 },
+    { month: 'Nov', users: 15600, growth: 5 },
+    { month: 'Dec', users: 16400, growth: 5 }
+  ],
+  revenue: [
+    { month: 'Jan', revenue: 65000 },
+    { month: 'Feb', revenue: 72000 },
+    { month: 'Mar', revenue: 68000 },
+    { month: 'Apr', revenue: 78000 },
+    { month: 'May', revenue: 82000 },
+    { month: 'Jun', revenue: 89000 },
+    { month: 'Jul', revenue: 85000 },
+    { month: 'Aug', revenue: 94000 },
+    { month: 'Sep', revenue: 91000 },
+    { month: 'Oct', revenue: 98000 },
+    { month: 'Nov', revenue: 105000 },
+    { month: 'Dec', revenue: 89432 }
+  ],
+  sessionAnalytics: {
+    totalSessions: 45678,
+    completedSessions: 42341,
+    cancelledSessions: 2156,
+    averageDuration: 52,
+    peakHours: ['2:00 PM', '3:00 PM', '7:00 PM'],
+    popularSubjects: [
+      { name: 'Quran Recitation', sessions: 15234, percentage: 33 },
+      { name: 'Arabic Language', sessions: 12456, percentage: 27 },
+      { name: 'Islamic Studies', sessions: 8901, percentage: 19 },
+      { name: 'Tajweed', sessions: 6789, percentage: 15 },
+      { name: 'Hadith Studies', sessions: 2298, percentage: 6 }
+    ]
+  },
+  demographics: {
+    byCountry: [
+      { country: 'United States', users: 3456, percentage: 27 },
+      { country: 'United Kingdom', users: 2134, percentage: 17 },
+      { country: 'Canada', users: 1876, percentage: 15 },
+      { country: 'Australia', users: 1234, percentage: 10 },
+      { country: 'Germany', users: 987, percentage: 8 },
+      { country: 'Others', users: 2890, percentage: 23 }
+    ],
+    byAge: [
+      { range: '18-25', users: 3456, percentage: 27 },
+      { range: '26-35', users: 4123, percentage: 32 },
+      { range: '36-45', users: 2987, percentage: 23 },
+      { range: '46-55', users: 1567, percentage: 12 },
+      { range: '55+', users: 714, percentage: 6 }
+    ]
+  }
+}
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview')
@@ -644,33 +708,148 @@ export default function AdminDashboard() {
             <div className="space-y-8">
               <h2 className="text-2xl font-bold text-gray-900">Platform Analytics</h2>
               
-              {/* Analytics Charts Placeholder */}
+              {/* Key Metrics */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Total Sessions</h3>
+                    <BookOpen className="w-6 h-6 text-blue-500" />
+                  </div>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">{analyticsData.sessionAnalytics.totalSessions.toLocaleString()}</div>
+                  <div className="text-sm text-blue-600">+12% from last month</div>
+                </div>
+                
+                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Completion Rate</h3>
+                    <CheckCircle className="w-6 h-6 text-green-500" />
+                  </div>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">92.7%</div>
+                  <div className="text-sm text-green-600">+2.3% from last month</div>
+                </div>
+                
+                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Avg Duration</h3>
+                    <Clock className="w-6 h-6 text-purple-500" />
+                  </div>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">{analyticsData.sessionAnalytics.averageDuration} min</div>
+                  <div className="text-sm text-purple-600">+5 min from last month</div>
+                </div>
+                
+                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Active Tutors</h3>
+                    <Users className="w-6 h-6 text-orange-500" />
+                  </div>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">247</div>
+                  <div className="text-sm text-orange-600">+18 new this month</div>
+                </div>
+              </div>
+
+              {/* Charts Grid */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* User Growth Chart */}
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">User Growth</h3>
-                  <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
-                    <p className="text-gray-500">User growth chart would be displayed here</p>
+                  <div className="h-64 flex items-end justify-between gap-2">
+                    {analyticsData.userGrowth.slice(-6).map((month, index) => (
+                      <div key={month.month} className="flex-1 flex flex-col items-center">
+                        <div 
+                          className="w-full bg-blue-500 rounded-t-lg transition-all duration-300 hover:bg-blue-600"
+                          style={{ height: `${(month.users / 20000) * 200}px` }}
+                          title={`${month.month}: ${month.users.toLocaleString()} users`}
+                        ></div>
+                        <div className="text-xs text-gray-600 mt-2">{month.month}</div>
+                        <div className="text-xs font-medium text-gray-900">{(month.users / 1000).toFixed(1)}k</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 
+                {/* Revenue Trends */}
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Revenue Trends</h3>
-                  <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
-                    <p className="text-gray-500">Revenue trends chart would be displayed here</p>
+                  <div className="h-64 flex items-end justify-between gap-2">
+                    {analyticsData.revenue.slice(-6).map((month, index) => (
+                      <div key={month.month} className="flex-1 flex flex-col items-center">
+                        <div 
+                          className="w-full bg-green-500 rounded-t-lg transition-all duration-300 hover:bg-green-600"
+                          style={{ height: `${(month.revenue / 120000) * 200}px` }}
+                          title={`${month.month}: $${month.revenue.toLocaleString()}`}
+                        ></div>
+                        <div className="text-xs text-gray-600 mt-2">{month.month}</div>
+                        <div className="text-xs font-medium text-gray-900">${(month.revenue / 1000).toFixed(0)}k</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Session Analytics</h3>
-                  <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
-                    <p className="text-gray-500">Session analytics chart would be displayed here</p>
-                  </div>
-                </div>
-                
+                {/* Popular Subjects */}
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Popular Subjects</h3>
-                  <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
-                    <p className="text-gray-500">Popular subjects chart would be displayed here</p>
+                  <div className="space-y-4">
+                    {analyticsData.sessionAnalytics.popularSubjects.map((subject, index) => (
+                      <div key={subject.name} className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <div className="flex justify-between mb-1">
+                            <span className="text-sm font-medium text-gray-900">{subject.name}</span>
+                            <span className="text-sm text-gray-600">{subject.percentage}%</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div 
+                              className="bg-islamic-600 h-2 rounded-full" 
+                              style={{ width: `${subject.percentage}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Demographics */}
+                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">User Demographics</h3>
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-sm font-medium text-gray-700 mb-3">By Country</h4>
+                      <div className="space-y-2">
+                        {analyticsData.demographics.byCountry.slice(0, 4).map((country, index) => (
+                          <div key={country.country} className="flex justify-between text-sm">
+                            <span className="text-gray-600">{country.country}</span>
+                            <span className="font-medium">{country.percentage}%</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-sm font-medium text-gray-700 mb-3">By Age Group</h4>
+                      <div className="space-y-2">
+                        {analyticsData.demographics.byAge.map((age, index) => (
+                          <div key={age.range} className="flex justify-between text-sm">
+                            <span className="text-gray-600">{age.range}</span>
+                            <span className="font-medium">{age.percentage}%</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Peak Hours */}
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Peak Session Hours</h3>
+                <div className="flex items-center gap-4">
+                  <Clock className="w-6 h-6 text-islamic-600" />
+                  <div className="flex gap-4">
+                    {analyticsData.sessionAnalytics.peakHours.map((hour, index) => (
+                      <span key={index} className="bg-islamic-100 text-islamic-700 px-3 py-1 rounded-full text-sm font-medium">
+                        {hour}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>

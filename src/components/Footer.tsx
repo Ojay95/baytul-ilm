@@ -45,6 +45,28 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/tutors" className="text-islamic-200 hover:text-white transition-colors">
+                  Find Tutors
+                </Link>
+              </li>
+              <li>
+                <Link to="/become-tutor" className="text-islamic-200 hover:text-white transition-colors">
+                  Become an Instructor
+                </Link>
+              </li>
+              <li>
+                <Link to="/login" className="text-islamic-200 hover:text-white transition-colors">
+                  Student Portal
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h3 className="text-lg font-semibold mb-6">Company</h3>
+            <ul className="space-y-3">
+              <li>
                 <Link to="/about" className="text-islamic-200 hover:text-white transition-colors">
                   About Us
                 </Link>
@@ -56,44 +78,17 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="text-islamic-200 hover:text-white transition-colors">
-                  Become an Instructor
+                  Careers
                 </a>
               </li>
               <li>
                 <a href="#" className="text-islamic-200 hover:text-white transition-colors">
-                  Student Portal
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Categories */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6">Categories</h3>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-islamic-200 hover:text-white transition-colors">
-                  Quran Studies
+                  Press
                 </a>
               </li>
               <li>
                 <a href="#" className="text-islamic-200 hover:text-white transition-colors">
-                  Arabic Language
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-islamic-200 hover:text-white transition-colors">
-                  Islamic History
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-islamic-200 hover:text-white transition-colors">
-                  Hadith Studies
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-islamic-200 hover:text-white transition-colors">
-                  Islamic Jurisprudence
+                  Blog
                 </a>
               </li>
             </ul>
