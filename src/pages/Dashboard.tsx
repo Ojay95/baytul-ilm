@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { Calendar, Clock, Users, DollarSign, Star, Video, MessageCircle, BookOpen, Settings, Bell } from 'lucide-react'
+import { Calendar, Clock, Users, DollarSign, Star, Video, MessageCircle, BookOpen, Settings, Bell, CheckCircle } from 'lucide-react'
 
 const upcomingSessions = [
   {
