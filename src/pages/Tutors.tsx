@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { Search, Filter, Star, Clock, Users, BookOpen, Video, MessageCircle, MapPin, Award } from 'lucide-react'
+import { Search, Filter, Star, Clock, Users, BookOpen, Video, MessageCircle, MapPin, Award, GraduationCap } from 'lucide-react'
 
 const tutors = [
   {
@@ -20,7 +20,8 @@ const tutors = [
     experience: "15+ years",
     sessionTypes: ["1-on-1", "Group"],
     availability: "Available",
-    location: "Egypt",
+    location: "Cairo, Egypt",
+    country: "Egypt",
     bio: "Certified Qari with Ijazah in 7 Qira'at. Specialized in helping students perfect their Quran recitation.",
     featured: true
   },
@@ -39,7 +40,8 @@ const tutors = [
     experience: "12+ years",
     sessionTypes: ["1-on-1", "Group"],
     availability: "Available",
-    location: "Morocco",
+    location: "Rabat, Morocco",
+    country: "Morocco",
     bio: "PhD in Arabic Literature from Al-Azhar. Expert in teaching Arabic to non-native speakers."
   },
   {
@@ -57,7 +59,8 @@ const tutors = [
     experience: "20+ years",
     sessionTypes: ["1-on-1", "Group"],
     availability: "Busy",
-    location: "Saudi Arabia",
+    location: "Riyadh, Saudi Arabia",
+    country: "Saudi Arabia",
     bio: "Senior Islamic scholar with expertise in comparative Fiqh and Hadith sciences."
   },
   {
@@ -75,7 +78,8 @@ const tutors = [
     experience: "10+ years",
     sessionTypes: ["1-on-1", "Group"],
     availability: "Available",
-    location: "Malaysia",
+    location: "Kuala Lumpur, Malaysia",
+    country: "Malaysia",
     bio: "Specialized in Islamic education for women and families. Expert in women's rights in Islam."
   },
   {
@@ -93,7 +97,8 @@ const tutors = [
     experience: "18+ years",
     sessionTypes: ["1-on-1"],
     availability: "Available",
-    location: "Spain",
+    location: "Cordoba, Spain",
+    country: "Spain",
     bio: "PhD in Islamic Philosophy. Specializes in classical Islamic theology and contemporary issues."
   },
   {
@@ -111,19 +116,46 @@ const tutors = [
     experience: "14+ years",
     sessionTypes: ["1-on-1", "Group"],
     availability: "Available",
-    location: "Turkey",
+    location: "Istanbul, Turkey",
+    country: "Turkey",
     bio: "Hafiz with proven track record of helping students complete Quran memorization efficiently."
   }
 ]
 
-const categories = [
-  "All Tutors",
-  "Quran Studies",
-  "Arabic Language", 
-  "Islamic Studies",
-  "Hadith Studies",
+const subjects = [
+  "All Subjects",
+  "Quran Recitation",
+  "Tajweed",
+  "Quran Memorization",
+  "Arabic Grammar",
+  "Arabic Conversation",
+  "Classical Arabic",
+  "Islamic History",
   "Fiqh",
-  "Tafseer"
+  "Hadith Studies",
+  "Tafseer",
+  "Aqeedah",
+  "Seerah",
+  "Islamic Ethics"
+]
+
+const countries = [
+  "All Countries",
+  "Egypt",
+  "Saudi Arabia",
+  "Morocco",
+  "Turkey",
+  "Malaysia",
+  "Pakistan",
+  "Jordan",
+  "Lebanon",
+  "Tunisia",
+  "Algeria",
+  "United Kingdom",
+  "United States",
+  "Canada",
+  "Australia",
+  "Spain"
 ]
 
 const priceRanges = [
@@ -142,11 +174,46 @@ const availabilityOptions = [
 
 export default function Tutors() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('All Tutors')
+  const [selectedSubject, setSelectedSubject] = useState('All Subjects')
+  const [selectedCountry, setSelectedCountry] = useState('All Countries')
   const [selectedPriceRange, setSelectedPriceRange] = useState('All Prices')
   const [selectedAvailability, setSelectedAvailability] = useState('All')
   const [showFilters, setShowFilters] = useState(false)
 
+  // Filter and sort tutors
+  const filteredTutors = tutors
+    .filter(tutor => {
+      const matchesSearch = tutor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           tutor.specialties.some(s => s.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                           tutor.languages.some(l => l.toLowerCase().includes(searchTerm.toLowerCase()))
+      
+      const matchesSubject = selectedSubject === 'All Subjects' || 
+                            tutor.specialties.some(s => s.toLowerCase().includes(selectedSubject.toLowerCase().replace(/\s+/g, ' ')))
+      
+      const matchesCountry = selectedCountry === 'All Countries' || 
+                            tutor.country === selectedCountry
+      
+      const matchesPrice = selectedPriceRange === 'All Prices' || 
+                          (selectedPriceRange === '$20 - $30' && tutor.hourlyRate >= 20 && tutor.hourlyRate <= 30) ||
+                          (selectedPriceRange === '$30 - $40' && tutor.hourlyRate >= 30 && tutor.hourlyRate <= 40) ||
+                          (selectedPriceRange === '$40 - $50' && tutor.hourlyRate >= 40 && tutor.hourlyRate <= 50) ||
+                          (selectedPriceRange === '$50+' && tutor.hourlyRate >= 50)
+      
+      const matchesAvailability = selectedAvailability === 'All' || 
+                                  tutor.availability === selectedAvailability
+      
+      return matchesSearch && matchesSubject && matchesCountry && matchesPrice && matchesAvailability
+    })
+    .sort((a, b) => {
+      // Ranking algorithm: Featured first, then by students count, then by rating
+      if (a.featured && !b.featured) return -1
+      if (!a.featured && b.featured) return 1
+      
+      if (a.students !== b.students) return b.students - a.students
+      if (a.rating !== b.rating) return b.rating - a.rating
+      
+      return a.name.localeCompare(b.name)
+    })
   return (
     <>
       <Header />
@@ -162,16 +229,51 @@ export default function Tutors() {
                 Browse through our verified tutors and find the perfect match for your learning goals
               </p>
               
-              {/* Search Bar */}
-              <div className="max-w-2xl mx-auto relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search by name, specialty, or language..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 text-lg focus:outline-none focus:ring-4 focus:ring-islamic-300"
-                />
+              {/* Dual Search Bar */}
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    {/* Country Search */}
+                    <div className="relative">
+                      <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                      <select 
+                        value={selectedCountry}
+                        onChange={(e) => setSelectedCountry(e.target.value)}
+                        className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 text-lg focus:outline-none focus:ring-4 focus:ring-islamic-300 bg-white"
+                      >
+                        {countries.map((country) => (
+                          <option key={country} value={country}>{country}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Subject Search */}
+                    <div className="relative">
+                      <GraduationCap className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                      <select 
+                        value={selectedSubject}
+                        onChange={(e) => setSelectedSubject(e.target.value)}
+                        className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 text-lg focus:outline-none focus:ring-4 focus:ring-islamic-300 bg-white"
+                      >
+                        {subjects.map((subject) => (
+                          <option key={subject} value={subject}>{subject}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  
+                  {/* Text Search */}
+                  <div className="relative">
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <input
+                      type="text"
+                      placeholder="Search by name, specialty, or language..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 text-lg focus:outline-none focus:ring-4 focus:ring-islamic-300"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -182,17 +284,6 @@ export default function Tutors() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex flex-wrap gap-4">
-                {/* Category Filter */}
-                <select 
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-islamic-500 focus:border-transparent"
-                >
-                  {categories.map((category) => (
-                    <option key={category} value={category}>{category}</option>
-                  ))}
-                </select>
-
                 {/* Price Filter */}
                 <select 
                   value={selectedPriceRange}
@@ -230,17 +321,25 @@ export default function Tutors() {
         {/* Results Summary */}
         <section className="py-6 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-gray-600">
-              Showing {tutors.length} tutors • Sorted by relevance
-            </p>
+            <div className="flex items-center justify-between">
+              <p className="text-gray-600">
+                Showing {filteredTutors.length} of {tutors.length} tutors
+                {selectedCountry !== 'All Countries' && ` in ${selectedCountry}`}
+                {selectedSubject !== 'All Subjects' && ` for ${selectedSubject}`}
+              </p>
+              <p className="text-sm text-gray-500">
+                Sorted by: Featured → Students → Rating
+              </p>
+            </div>
           </div>
         </section>
 
         {/* Tutors Grid */}
         <section className="py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {tutors.map((tutor) => (
+            {filteredTutors.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredTutors.map((tutor) => (
                 <div key={tutor.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group border border-gray-100">
                   <div className="relative">
                     <img
@@ -345,8 +444,31 @@ export default function Tutors() {
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16">
+                <div className="bg-gray-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Search className="w-12 h-12 text-gray-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">No tutors found</h3>
+                <p className="text-gray-600 mb-6">
+                  Try adjusting your search criteria or browse all tutors
+                </p>
+                <button 
+                  onClick={() => {
+                    setSelectedCountry('All Countries')
+                    setSelectedSubject('All Subjects')
+                    setSearchTerm('')
+                    setSelectedPriceRange('All Prices')
+                    setSelectedAvailability('All')
+                  }}
+                  className="bg-islamic-600 text-white px-6 py-3 rounded-lg hover:bg-islamic-700 transition-colors"
+                >
+                  Clear All Filters
+                </button>
+              </div>
+            )}
           </div>
         </section>
       </main>

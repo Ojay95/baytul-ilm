@@ -236,8 +236,35 @@ export default function TutorEarnings() {
                   </select>
                 </div>
                 
-                {/* Simple Bar Chart */}
-                <div className="h-64 flex items-end justify-between gap-2">
+                
+                {/* Earnings Chart */}
+                <div className="h-64 flex items-end justify-between gap-2 bg-gray-50 rounded-lg p-4">
+                  {monthlyEarnings.slice(-6).map((month, index) => (
+                    <div key={month.month} className="flex-1 flex flex-col items-center">
+                      <div 
+                        className="w-full bg-islamic-600 rounded-t-lg transition-all duration-300 hover:bg-islamic-700 relative group"
+                        style={{ height: `${(month.earnings / 2500) * 200}px` }}
+                      >
+                        {/* Tooltip */}
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-gray-900 text-white px-3 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                          ${month.earnings} • {month.sessions} sessions
+                        </div>
+                      </div>
+                      <div className="text-xs text-gray-600 mt-2 font-medium">{month.month}</div>
+                      <div className="text-xs text-gray-900 font-bold">${month.earnings}</div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Chart Legend */}
+                <div className="mt-4 flex items-center justify-center gap-6 text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-islamic-600 rounded"></div>
+                    <span className="text-gray-600">Monthly Earnings</span>
+                  </div>
+                  <div className="text-gray-500">
+                    Average: ${(monthlyEarnings.reduce((sum, month) => sum + month.earnings, 0) / monthlyEarnings.length).toFixed(0)}/month
+                  </div>
                   {monthlyEarnings.slice(-6).map((month, index) => (
                     <div key={month.month} className="flex-1 flex flex-col items-center">
                       <div 
