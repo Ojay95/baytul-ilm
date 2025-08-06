@@ -40,23 +40,23 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/courses" className="text-islamic-200 hover:text-white transition-colors">
-                  All Courses
-                </Link>
-              </li>
-              <li>
                 <Link to="/tutors" className="text-islamic-200 hover:text-white transition-colors">
                   Find Tutors
                 </Link>
               </li>
               <li>
                 <Link to="/become-tutor" className="text-islamic-200 hover:text-white transition-colors">
-                  Become an Instructor
+                  Become a Tutor
                 </Link>
               </li>
               <li>
                 <Link to="/login" className="text-islamic-200 hover:text-white transition-colors">
                   Student Portal
+                </Link>
+              </li>
+              <li>
+                <Link to="/tutor-onboarding" className="text-islamic-200 hover:text-white transition-colors">
+                  Tutor Onboarding
                 </Link>
               </li>
             </ul>

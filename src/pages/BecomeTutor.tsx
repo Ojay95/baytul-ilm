@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { Upload, CheckCircle, Star, Users, DollarSign, Clock, Award, BookOpen } from 'lucide-react'
@@ -424,9 +425,12 @@ export default function BecomeTutor() {
                       <li>• Start teaching and earning within a week!</li>
                     </ul>
                   </div>
-                  <button className="bg-islamic-600 text-white px-8 py-3 rounded-lg hover:bg-islamic-700 transition-colors font-medium">
-                    Return to Homepage
-                  </button>
+                  <Link
+                    to="/tutor-onboarding"
+                    className="bg-islamic-600 text-white px-8 py-3 rounded-lg hover:bg-islamic-700 transition-colors font-medium inline-block"
+                  >
+                    Complete Full Onboarding
+                  </Link>
                 </div>
               )}
             </div>

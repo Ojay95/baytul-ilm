@@ -4,11 +4,11 @@ import { Play, Star, Users, BookOpen, Video, Clock, Search, MapPin, GraduationCa
 
 const Hero = () => {
   return (
-    <section className="relative bg-gradient-to-br from-islamic-600 via-islamic-700 to-islamic-800 text-white overflow-hidden min-h-screen flex items-center">
+    <section className="relative bg-gradient-to-br from-islamic-600 via-islamic-700 to-islamic-800 text-white overflow-hidden py-20">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-islamic-pattern opacity-10"></div>
       
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="space-y-8">
           {/* Main Content */}
           <div className="space-y-6">

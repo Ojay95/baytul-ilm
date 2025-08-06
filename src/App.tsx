@@ -25,6 +25,8 @@ import Chat from './pages/Chat'
 import BecomeTutor from './pages/BecomeTutor'
 import TutorDashboard from './pages/TutorDashboard'
 import TutorEarnings from './pages/TutorEarnings'
+import TutorOnboarding from './pages/TutorOnboarding'
+import TutorPayments from './pages/TutorPayments'
 
 // Admin Pages
 import AdminDashboard from './pages/AdminDashboard'
@@ -70,6 +72,7 @@ function App() {
 
         {/* Tutor Protected Routes */}
         <Route path="/become-tutor" element={<BecomeTutor />} />
+        <Route path="/tutor-onboarding" element={<TutorOnboarding />} />
         <Route path="/tutor-dashboard" element={
           <ProtectedRoute requiredRoles={['tutor']}>
             <TutorDashboard />
@@ -78,6 +81,11 @@ function App() {
         <Route path="/tutor-earnings" element={
           <ProtectedRoute requiredRoles={['tutor']}>
             <TutorEarnings />
+          </ProtectedRoute>
+        } />
+        <Route path="/tutor-payments" element={
+          <ProtectedRoute requiredRoles={['tutor']}>
+            <TutorPayments />
           </ProtectedRoute>
         } />
 

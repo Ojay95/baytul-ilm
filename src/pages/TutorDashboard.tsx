@@ -634,10 +634,12 @@ export default function TutorDashboard() {
                     
                     <div className="flex gap-2">
                       <button className="flex-1 bg-islamic-600 text-white py-2 px-3 rounded-lg hover:bg-islamic-700 transition-colors text-sm">
-                        View Profile
+                        <Link to={`/student-profile`}>View Profile</Link>
                       </button>
                       <button className="bg-gray-100 text-gray-700 p-2 rounded-lg hover:bg-gray-200 transition-colors">
-                        <MessageCircle className="w-4 h-4" />
+                        <Link to={`/chat/${student.id}`}>
+                          <MessageCircle className="w-4 h-4" />
+                        </Link>
                       </button>
                     </div>
                   </div>
