@@ -1,32 +1,7 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { 
-  DollarSign, 
-  CreditCard, 
-  Bank, 
-  Clock, 
-  CheckCircle, 
-  AlertCircle,
-  Download,
-  Eye,
-  Filter,
-  Calendar,
-  TrendingUp,
-  ArrowUpRight,
-  ArrowDownRight,
-  Wallet,
-  RefreshCw,
-  Shield,
-  Info,
-  ExternalLink,
-  Copy,
-  Settings,
-  Plus,
-  Edit,
-  Trash2,
-  X
-} from 'lucide-react'
+import { DollarSign, CreditCard, Ban as Bank, Clock, CheckCircle, AlertCircle, Download, Eye, Filter, Calendar, TrendingUp, ArrowUpRight, ArrowDownRight, Wallet, RefreshCw, Shield, Info, ExternalLink, Copy, Settings, Plus, Edit, Trash2, X } from 'lucide-react'
 
 const earningsData = {
   totalEarnings: 12450,
